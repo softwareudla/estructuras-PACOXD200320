@@ -1,39 +1,41 @@
 #include <stdio.h>
 #include "funciones.h"
 
-int main (int argc, char *argv[]) {
-
+int main() {
     struct Libro libros[20];
-    int opc;
-    int i=0;
-    do{
-    opc = menu();
-    switch (opc)
-    {
-        case 1:
-            registrarLibros(libros, i);
-            break;
-        case 2:
-            mostrarLibros(libros);
-            break;
-        case 3:
-            int id;
-            printf("Ingrese el id del libro a buscar: ");
-            scanf("%d", &id);
-            buscarLibroId(libros, id);
-            i++;
-            break;
-        case 4:
-            char titulo[100];
-            printf("Ingrese el titulo del libro a buscar: ");
-            scanf("%s", titulo);
-            buscarLibroTitulo(libros, titulo);
-            break;
-        
+    int opc, i = 0;
 
-    }
-    }while(opc != 7);
-
+    do {
+        opc = menu();
+        switch (opc) {
+            case 1:
+                registrarLibros(libros, i);
+                i++;
+                break;
+            case 2:
+                mostrarLibros(libros, i);
+                break;
+            case 3:
+                {
+                    int busq;
+                    printf("Ingrese la opcion de busqueda: 1. Titulo, 2. ID\n");
+                    scanf("%d", &busq);
+                    buscarLibroId(libros, busq, i);
+                }
+                break;
+            case 4:
+                cambiarEstado(libros, i);
+                break;
+            case 5:
+                eliminarLibro(libros, &i);
+                break;
+            case 6:
+                printf("Saliendo del programa...\n");
+                break;
+            default:
+                printf("Opcion no valida, intente nuevamente.\n");
+        }
+    } while (opc != 6);
 
     return 0;
 }
